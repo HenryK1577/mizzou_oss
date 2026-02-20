@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: change-me
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  web:
+    build: ./backend
+    command: bash -lc "python manage.py migrate && daphne -b 0.0.0.0 -p 8000 config.asgi:application"
+    environment:
+      DJANGO_SECRET_KEY: "dev-only-secret"
+      DJANGO_DEBUG: "1"
+      DATABASE_URL: "postgres://devuser:change-me@db:5432/app"
+      REDIS_URL: "redis://redis:6379/0"
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+
+  worker:
+    build: ./backend
+    command: bash -lc "celery -A config worker -l INFO"
+    environment:
+      DJANGO_SECRET_KEY: "dev-only-secret"
+      DJANGO_DEBUG: "1"
+      DATABASE_URL: "postgres://devuser:change-me@db:5432/app"
+      REDIS_URL: "redis://redis:6379/0"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  pgdata:

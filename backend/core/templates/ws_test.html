@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <body>
+    <h1>WebSocket test</h1>
+    <pre id="log"></pre>
+    <input id="msg" placeholder="type message" />
+    <button id="send">Send</button>
+
+    <script>
+      const log = (m) => document.getElementById("log").textContent += m + "\n";
+      const ws = new WebSocket(`ws://${location.host}/ws/echo/`);
+
+      ws.onopen = () => log("ws open");
+      ws.onmessage = (e) => log("recv: " + e.data);
+      ws.onclose = () => log("ws closed");
+
+      document.getElementById("send").onclick = () => {
+        const v = document.getElementById("msg").value;
+        ws.send(v);
+      };
+    </script>
+  </body>
+</html>
