@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### Running Locally
 
 1. From the project root, do:
@@ -43,3 +44,7 @@ docker-compose.yml --- service orchestration
 
 ### Contribution
 Fork from main and open a PR, be mindful not to commit secrets
+=======
+# mizzou_oss
+testing for push access
+>>>>>>> 69b4ceade1f324589965daee07732c1f5ea05b0b
