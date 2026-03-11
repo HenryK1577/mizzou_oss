@@ -9,6 +9,11 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devuser -d app"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   redis:
     image: redis:7
@@ -21,15 +26,17 @@ services:
     environment:
       DJANGO_SECRET_KEY: "dev-only-secret"
       DJANGO_DEBUG: "1"
-      DATABASE_URL: "postgres://devuser:change-me@db:5432/app"
+      DATABASE_URL: "postgresql://devuser:change-me@db:5432/app"
       REDIS_URL: "redis://redis:6379/0"
     volumes:
       - ./backend:/app
     ports:
       - "8000:8000"
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
   worker:
     build: ./backend
@@ -37,13 +44,15 @@ services:
     environment:
       DJANGO_SECRET_KEY: "dev-only-secret"
       DJANGO_DEBUG: "1"
-      DATABASE_URL: "postgres://devuser:change-me@db:5432/app"
+      DATABASE_URL: "postgresql://devuser:change-me@db:5432/app"
       REDIS_URL: "redis://redis:6379/0"
     volumes:
       - ./backend:/app
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
 volumes:
   pgdata:
