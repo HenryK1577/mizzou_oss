@@ -5,8 +5,21 @@ from .serializers import PingSerializer
 from .tasks import create_ping_task
 from django.shortcuts import render
 
-def ws_test(request):
-    return render(request, "ws_test.html")
+# Deprecated, can be used for testing
+# def ws_test(request):
+#     return render(request, "ws_test.html")
+
+def landing(request):
+    return render(request, "core/landing.html")
+
+def communication(request):
+    return render(request, "core/communication.html")
+
+def login(request):
+    return render(request, "core/login.html")
+
+def registration(request):
+    return render(request, "core/registration.html")
 
 @api_view(["POST"])
 def create_ping(request):
