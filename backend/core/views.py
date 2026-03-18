@@ -30,7 +30,6 @@ def create_ping(request):
 def health(request):
     return Response({"ok": True})
 
-
 @api_view(["POST"])
 def enqueue_ping(request):
     job = create_ping_task.delay()

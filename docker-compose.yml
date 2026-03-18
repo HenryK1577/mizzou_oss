@@ -22,7 +22,7 @@ services:
 
   web:
     build: ./backend
-    command: bash -lc "python manage.py migrate && daphne -b 0.0.0.0 -p 8000 config.asgi:application"
+    command: bash -lc "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     environment:
       DJANGO_SECRET_KEY: "dev-only-secret"
       DJANGO_DEBUG: "1"
