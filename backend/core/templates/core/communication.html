@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Communication{% endblock %}
+
+{% block content %}
+<h1>Communication</h1>
+
+<div id="communication-app">
+  {% include "includes/communication_userlist.html" %}
+  {% include "includes/communication_chat.html" %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'core/js/communication_userlist.js' %}"></script>
+<script src="{% static 'core/js/communication_chat.js' %}"></script>
+{% endblock %}

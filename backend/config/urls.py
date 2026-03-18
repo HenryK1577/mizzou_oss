@@ -23,9 +23,5 @@ urlpatterns = [
     path("api/health/", views.health),
     path("api/ping/", views.create_ping),
     path("api/ping/enqueue/", views.enqueue_ping),
-    path("", include(("core.urls", "core"), namespace="core")),
-    path("", views.landing),
-    path("communication/", views.communication),
-    path("login/", views.login),
-    path("registration/", views.registration)
+    path("", include(("core.urls", "core"), namespace="core"))
 ]

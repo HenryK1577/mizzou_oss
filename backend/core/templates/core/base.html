@@ -4,13 +4,10 @@
   <title>{% block title %}Battleship App{% endblock %}</title>
 </head>
 <body>
+  {% include "includes/navbar.html" %}
 
-{% include "includes/navbar.html" %}
+  {% block content %}{% endblock %}
 
-<hr>
-
-{% block content %}
-{% endblock %}
-
+  {% block extra_js %}{% endblock %}
 </body>
 </html>
