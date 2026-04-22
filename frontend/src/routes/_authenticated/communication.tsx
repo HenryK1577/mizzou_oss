@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-export const Route = createFileRoute('/communication')({
+export const Route = createFileRoute('/_authenticated/communication')({
   component: RouteComponent,
 })
 

@@ -23,5 +23,8 @@ urlpatterns = [
     path("api/health/", views.health),
     path("api/ping/", views.create_ping),
     path("api/ping/enqueue/", views.enqueue_ping),
-    path("", include(("core.urls", "core"), namespace="core"))
+    path("api/auth/login/", views.auth_login),
+    path("api/auth/logout/", views.auth_logout),
+    path("api/auth/register/", views.auth_register),
+    path("api/auth/me/", views.auth_me),
 ]
