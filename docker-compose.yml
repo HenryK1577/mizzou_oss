@@ -15,6 +15,17 @@ services:
       timeout: 5s
       retries: 20
 
+  frontend:
+    image: node:22
+    working_dir: /app
+    command: npm run dev -- --host
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5173:5173"
+    depends_on:
+      - web
+
   redis:
     image: redis:7
     ports:
